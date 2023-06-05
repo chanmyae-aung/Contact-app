@@ -4,17 +4,20 @@ import Cookies from 'js-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../redux/authSlice'
 import { setSearchTerm } from '../redux/contactSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const user = JSON.parse(Cookies.get('user'))
   const token = Cookies.get('token')
   const dispatch = useDispatch()
     const [logout] = useLogoutMutation()
+    const nav = useNavigate()
 
     const logoutHandler = async() => {
       const data = await logout(token)
       dispatch(removeUser())
       console.log(data)
+      nav("/login")
     }
     
   const searchTerm = useSelector((state) => state.contactSlice.searchTerm)
@@ -34,7 +37,7 @@ const Navbar = () => {
             />
         </div>
         <button className='mx-20 bg-purple-500 text-white rounded-full w-10 h-10'>{user.name.charAt(0).toUpperCase()}</button>
-        <button onClick={logoutHandler}>logout</button>
+        <button onClick={logoutHandler} className='px-4 py-1 bg-red-500 text-white'>logout</button>
     </div>
   )
 }

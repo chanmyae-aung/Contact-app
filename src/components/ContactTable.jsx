@@ -3,24 +3,23 @@ import { useGetContactQuery } from "../redux/contactApi";
 import Cookies from "js-cookie";
 import { BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ContactTable = () => {
   const token = Cookies.get("token");
   const { data, isLoading } = useGetContactQuery(token);
   const contactList = data?.contacts?.data;
   console.log(contactList);
-  const contacts = useSelector(state=> state.contactSlice.contact)
-  const searchTerm = useSelector ((state) => state.contactSlice.searchTerm)
-  console.log(contacts)
-  const filteredContacts = contacts?.filter(contact => {
-    if(searchTerm === "") return contact;
-    else if(contact?.name.toLowerCase().includes(searchTerm.toLowerCase())) return contact
-  } )
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+      <Link to={"/create"}>
+      <button className="py-1 px-4 bg-blue-500 rounded-full mb-5 ml-10 text-white">Create Contact</button>
+      </Link>
       <table className="w-full text-sm text-left text-gray-700">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
+            <th scope="col" className="px-6 py-4"></th>
             <th scope="col" className="px-6 py-4">
               Name
             </th>
@@ -45,10 +44,7 @@ const ContactTable = () => {
                 key={contact?.id}
                 className="bg-white border-b hover:bg-blue-50 transition-all hover:-translate-y-0.5 duration-100 "
               >
-                <th
-                  scope="row"
-                  className="px-6 py-1 flex gap-10 items-center font-medium text-gray-900 whitespace-nowrap "
-                >
+                <td className="pl-10 py-1">
                   {contact?.photo === null ? (
                     <button className="w-10 h-10 rounded-full bg-blue-400">
                       {contact?.name.charAt(0).toUpperCase()}
@@ -60,6 +56,11 @@ const ContactTable = () => {
                       alt="Jese image"
                     ></img>
                   )}
+                </td>
+                <th
+                  scope="row"
+                  className="px-6 py-1 font-medium text-gray-900 whitespace-nowrap "
+                >
                   {contact?.name.toUpperCase()}
                 </th>
                 <td className="px-6 py-1">{contact?.email}</td>

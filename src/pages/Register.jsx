@@ -10,9 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirm] = useState("");
   const [register, { isLoading }] = useRegisterMutation();
-  const nav = useNavigate()
+  const nav = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const [invalidName, setInvalidName] = useState("");
+  const [invalidEmail, setInvalidEmail] = useState("");
+  const [invalidPassword, setInvalidPassword] = useState("");
+  const [invalidConfirm, setInvalidConfirm] = useState("");
 
   const registerHandler = async (e) => {
     try {
@@ -20,7 +25,11 @@ const Register = () => {
       e.preventDefault();
       const { data } = await register(user);
       console.log(data);
-      data?.success && nav("/login")
+      !data?.success && setInvalidName("invalid name");
+      !data?.success && setInvalidEmail("invalid email");
+      !data?.success && setInvalidPassword("invalid password");
+      !data?.success && setInvalidConfirm("invalid password confirmation");
+      data?.success && nav("/login");
     } catch (error) {
       console.log("error", error);
     }
@@ -37,55 +46,69 @@ const Register = () => {
             src="https://seeklogo.com/images/G/google-contacts-logo-A07A806C3B-seeklogo.com.png"
             alt=""
           />
-          <h2 className="text-center text-2xl text-gray-700 my-4 font-semibold">Sign up with your email</h2>
+          <h2 className="text-center text-2xl text-gray-700 my-4 font-semibold">
+            Sign up with your email
+          </h2>
           <div className="mb-6">
             <input
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value)
+                setInvalidName("")
+              }}
               type="name"
               id="name"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your name..."
-              required
             />
+            {name.length <3 && <p className="text-red-500 text-sm">{invalidName}</p>}
           </div>
           <div className="mb-6">
             <input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                setInvalidEmail("")
+              }}
               type="email"
               id="email"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your email..."
-              required
             />
+            {email.length <= 0 && <p className="text-red-500 text-sm">{invalidEmail}</p>}
           </div>
           <div className="mb-6 relative">
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value)
+                setInvalidPassword("")
+              }}
               type={showPassword ? "text" : "password"}
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              required
               placeholder="Enter your password..."
-            />
+              />
+              {password.length <8 && <p className="text-red-500 text-sm">{invalidPassword}</p>}
             <label
               onClick={() => setShowPassword(!showPassword)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
             >
-              {!showPassword ? <RxEyeClosed/> : <RxEyeOpen/>}
+              {!showPassword ? <RxEyeClosed /> : <RxEyeOpen />}
             </label>
           </div>
           <div className="mb-6 relative">
             <input
-              onChange={(e) => setPasswordConfirm(e.target.value)}
+              onChange={(e) => {
+                setPasswordConfirm(e.target.value)
+                setInvalidConfirm("")
+              }}
               type={showPasswordConfirm ? "text" : "password"}
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              required=""
               placeholder="Confirm your password..."
-            />
+              />
+              {password_confirmation.length <3 && <p className="text-red-500 text-sm">{invalidConfirm}</p>}
             <label
               onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
-              >
-              {!showPasswordConfirm ? <RxEyeClosed/> : <RxEyeOpen/>}
+            >
+              {!showPasswordConfirm ? <RxEyeClosed /> : <RxEyeOpen />}
             </label>
           </div>
           <button

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../redux/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/authSlice";
-import { FaRegEye } from "react-icons/fa";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 
 const Login = () => {
@@ -12,10 +11,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-
   const [login, { isLoading, isError }] = useLoginMutation();
   const dispatch = useDispatch();
   const nav = useNavigate();
+
+  const [invalidPassword, setInvalidPassword] = useState("")
+  console.log(invalidPassword)
 
   const loginHandler = async (e) => {
     try {
@@ -24,6 +25,8 @@ const Login = () => {
       const { data } = await login(user);
       console.log(data);
       data?.success && nav("/");
+      password.length < 8 ? setInvalidPassword("password must have at least 8 letters") : setInvalidPassword("")
+      data?.success === false ? setInvalidPassword("invalid password") : setInvalidPassword("")
       dispatch(addUser({ user: data.user, token: data.token }));
     } catch (error) {
       console.log("error", error);
@@ -57,7 +60,8 @@ const Login = () => {
           <div className="mb-6 relative">
             <input
               onChange={(e) => {
-                setPassword(e.target.value);
+                setPassword(e.target.value)
+                setInvalidPassword(""); 
               }}
               type={showPassword ? "text" : "password"}
               id="password"
@@ -65,6 +69,7 @@ const Login = () => {
               required
               placeholder="Enter your password..."
             />
+            {<p className="text-red-500 text-sm">{invalidPassword}</p> }
             <p
               onClick={() => setShowPassword(!showPassword)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
