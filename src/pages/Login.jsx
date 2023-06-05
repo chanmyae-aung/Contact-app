@@ -4,24 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../redux/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/authSlice";
-import { RxEyeOpen, RxEyeClosed } from "react-icons/rx";
+import { FaRegEye } from "react-icons/fa";
+import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState("password");
-  const [eyeIcon, setEyeIcon] = useState(<RxEyeOpen />);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePassword = () => {
-    showPassword === "password"
-      ? setShowPassword("text")
-      : setShowPassword("password");
-    eyeIcon === <RxEyeOpen />
-      ? setEyeIcon(<RxEyeClosed />)
-      : setEyeIcon(<RxEyeOpen />);
-  };
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isError }] = useLoginMutation();
   const dispatch = useDispatch();
   const nav = useNavigate();
 
@@ -67,17 +59,17 @@ const Login = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              type={showPassword}
+              type={showPassword ? "text" : "password"}
               id="password"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               required
               placeholder="Enter your password..."
             />
             <p
-              onClick={togglePassword}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
             >
-              {eyeIcon}
+              {!showPassword ? <RxEyeClosed/> : <RxEyeOpen/>}
             </p>
           </div>
           <button
@@ -85,8 +77,8 @@ const Login = () => {
             disabled={isLoading}
             className={
               !isLoading
-                ? " text-white w-full bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                : " text-gray-300 w-full bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                ? " text-white w-full bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                : " text-gray-300 w-full bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             }
           >
             Sign in

@@ -11,19 +11,8 @@ const Register = () => {
   const [password_confirmation, setPasswordConfirm] = useState("");
   const [register, { isLoading }] = useRegisterMutation();
   const nav = useNavigate()
-  const [showPassword, setShowPassword] = useState("password");
-  const [eyeIcon, setEyeIcon] = useState(<RxEyeOpen />);
-  
-  const dynamicId = "flexCheck" + Math.random();
-
-  const togglePassword = () => {
-    showPassword === "password"
-      ? setShowPassword("text")
-      : setShowPassword("password");
-    eyeIcon === <RxEyeOpen />
-      ? setEyeIcon(<RxEyeClosed />)
-      : setEyeIcon(<RxEyeOpen />);
-  };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const registerHandler = async (e) => {
     try {
@@ -72,35 +61,31 @@ const Register = () => {
           <div className="mb-6 relative">
             <input
               onChange={(e) => setPassword(e.target.value)}
-              type={showPassword}
-              id= {dynamicId}
+              type={showPassword ? "text" : "password"}
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               required
               placeholder="Enter your password..."
             />
             <label
-            htmlFor={dynamicId}
-              onClick={togglePassword}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
             >
-              {eyeIcon}
+              {!showPassword ? <RxEyeClosed/> : <RxEyeOpen/>}
             </label>
           </div>
           <div className="mb-6 relative">
             <input
               onChange={(e) => setPasswordConfirm(e.target.value)}
-              type={showPassword}
-              id={dynamicId}
+              type={showPasswordConfirm ? "text" : "password"}
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               required=""
               placeholder="Confirm your password..."
             />
             <label
-            htmlFor={dynamicId}
-              onClick={togglePassword}
+              onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
               className="absolute top-0.5 right-0 px-5 py-3 cursor-pointer"
-            >
-              {eyeIcon}
+              >
+              {!showPasswordConfirm ? <RxEyeClosed/> : <RxEyeOpen/>}
             </label>
           </div>
           <button
