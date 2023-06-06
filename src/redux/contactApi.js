@@ -23,7 +23,15 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["contact"],
     }),
+    deleteContact: builder.mutation({
+      query: ({token, id}) => ({
+        url: `/delete/${id}`,
+        method: "DELETE",
+        headers: {authorization: `Bearer ${token}`}
+      }),
+invalidatesTags: ['contact']
+    })
   }),
 });
 
-export const {useGetContactQuery, useCreateContactMutation} = contactApi
+export const {useGetContactQuery, useCreateContactMutation, useDeleteContactMutation} = contactApi

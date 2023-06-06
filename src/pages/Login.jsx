@@ -37,7 +37,7 @@ const Login = () => {
       <BaseLayout>
         <form
           onSubmit={loginHandler}
-          className=" p-5 pt-0 flex flex-col border"
+          className=" p-5 pt-0 flex flex-col md:border"
         >
           <img
             className="w-24 mx-auto mt-5"
@@ -89,7 +89,7 @@ const Login = () => {
             Sign in
           </button>
         </form>
-        <div className="flex justify-center gap-3 my-5 border p-5">
+        <div className="flex justify-center gap-3 my-5 md:border p-5">
           <p>Don't have an account?</p>
           <Link to={"/register"}>
             <p className="text-blue-600">Sign up</p>
