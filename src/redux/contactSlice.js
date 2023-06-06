@@ -10,12 +10,12 @@ export const contactSlice = createSlice({
   name: "contact",
   initialState,
   reducers: {
+    addContact: (state, {payload}) => {
+      state.contact = payload
+    },
     setSearchTerm: (state, {payload}) => {
         state.searchTerm = payload
     },
-    addContact: (state, {payload}) => {
-      state.contact = payload
-    }
     }
 });
 
