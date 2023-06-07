@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const [login, { isLoading, isError }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const nav = useNavigate();
 
@@ -26,11 +26,8 @@ const Login = () => {
       const { data } = await login(user);
       console.log(data);
       data?.success && nav("/");
-      !data?.success && setInvalidEmail("invalid email");
-      password.length < 8
-        ? setInvalidPassword("password must have at least 8 letters")
-        : setInvalidPassword("");
-      data?.success === false
+      !email.includes("@gmail.com") && setInvalidEmail("invalid email");
+      !data?.success && password.length <8
         ? setInvalidPassword("invalid password")
         : setInvalidPassword("");
       dispatch(addUser({ user: data.user, token: data.token }));
@@ -41,7 +38,7 @@ const Login = () => {
   return (
     <>
       <BaseLayout>
-        <div className="flex flex-col w-96">
+        <div className="flex flex-col md:w-96">
           <h2 className="text-center text-2xl text-gray-700 my-3 font-semibold">
             Log in
           </h2>
@@ -66,8 +63,10 @@ const Login = () => {
             </div>
             <div className="mb-4">
               <input
-                onChange={(e) => {setEmail(e.target.value);
-                  setInvalidEmail("")}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setInvalidEmail("");
+                }}
                 type="email"
                 id="email"
                 className={
@@ -111,7 +110,7 @@ const Login = () => {
                   : " text-gray-300 w-full bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               }
             >
-              Log in              
+              Log in
             </button>
           </form>
           <div className="flex justify-center gap-3 my-2 p-5">
@@ -121,7 +120,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        <div className="w-96 hidden md:block">
+        <div className="md:w-96 hidden md:block">
           <img
             src="https://img.freepik.com/free-vector/flat-design-illustration-customer-support_23-2148887720.jpg?size=626&ext=jpg&ga=GA1.1.1130450271.1685770899&semt=sph"
             alt=""
