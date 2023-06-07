@@ -2,7 +2,7 @@ import React from 'react'
 
 const BaseLayout = ({children}) => {
   return (
-    <div className=' flex flex-col w-96 mx-auto h-screen justify-center'>
+    <div className=' flex mx-auto w-[70%] h-screen justify-center items-center rounded-lg'>
         {children}
     </div>
   )

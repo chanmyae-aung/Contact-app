@@ -11,12 +11,11 @@ import { addContact } from "../redux/contactSlice";
 import { Loader } from "@mantine/core";
 import { BiEditAlt, BiHeart, BiTrash, BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import {} from 'react-icons/go'
 
 const ContactTable = () => {
   const token = Cookies.get("token");
   const { data, isLoading } = useGetContactQuery(token);
-  const [deleteContact] = useDeleteContactMutation();
+  const [deleteContact] = useDeleteContactMutation(token);
   const contactList = data?.contacts?.data;
 
   const dispatch = useDispatch();
@@ -52,10 +51,10 @@ const ContactTable = () => {
       />
     );
 
-  // const deleteHandler = async(id) => {
-  //   const data = await deleteContact({id, token})
-  //   console.log(data)
-  // }
+  const deleteHandler = async(id) => {
+    const data = await deleteContact({id, token})
+    console.log(data)
+  }
 
   return (
     <>
@@ -129,10 +128,12 @@ const ContactTable = () => {
                       <button>
                         <BiHeart />
                       </button>
+                      <Link to={`/update/${contact?.id}`}>
                       <button>
                         <BiEditAlt />
                       </button>
-                      <button>
+                      </Link>
+                      <button onClick={()=>deleteHandler(contact?.id)}>
                         <BiTrash />
                       </button>
 

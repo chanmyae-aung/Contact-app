@@ -48,7 +48,7 @@ const SideBar = () => {
           <BiTrashAlt />
           Trash
         </p>
-        <p onClick={logoutHandler} className="py-2 px-10 mr-10 rounded-e-full hover:bg-red-500 cursor-pointer flex gap-3 items-center hover:text-white">
+        <p onClick={logoutHandler} className="py-2 px-10 mr-10 rounded-e-full hover:bg-blue-100 cursor-pointer flex gap-3 items-center hover:text-red-500">
         <MdLogout />
         Logout
         </p>
