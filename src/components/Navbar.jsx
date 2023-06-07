@@ -45,7 +45,7 @@ const Navbar = () => {
           value={searchTerm}
         />
       </div>
-      <button className="mx-20 hidden md:flex bg-purple-500 text-white rounded-full w-10 h-10">
+      <button className="mx-20 hidden md:flex items-center justify-center bg-purple-500 text-white rounded-full w-10 h-10">
         {user.name.charAt(0).toUpperCase()}
       </button>
       <CgProfile className="md:hidden text-2xl text-gray-500 ml-auto mx-5"/>

@@ -24,7 +24,7 @@ const Register = () => {
       const user = { name, email, password, password_confirmation };
       e.preventDefault();
       const { data } = await register(user);
-      console.log(data);
+      // console.log(data);
       !data?.success && setInvalidName("invalid name");
       !data?.success && setInvalidEmail("invalid email");
       !data?.success && setInvalidPassword("invalid password");

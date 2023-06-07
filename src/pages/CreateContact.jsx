@@ -37,7 +37,7 @@ const CreateContact = () => {
       <BaseLayout>
         <form
           onSubmit={handleCreate}
-          className="border p-5 pt-0 flex flex-col "
+          className="md:border p-5 pt-0 flex flex-col "
         >
           <img
             className="w-24 mt-5 mx-auto"

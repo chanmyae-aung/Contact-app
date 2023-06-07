@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDeleteContactMutation, useGetContactQuery } from "../redux/contactApi";
+import {
+  useDeleteContactMutation,
+  useGetContactQuery,
+} from "../redux/contactApi";
 import Cookies from "js-cookie";
 import SideBar from "./SideBar";
 import { VscMenu } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../redux/contactSlice";
 import { Loader } from "@mantine/core";
-import { BiEditAlt, BiHeart, BiTrash } from "react-icons/bi";
+import { BiEditAlt, BiHeart, BiTrash, BiUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import {} from 'react-icons/go'
 
 const ContactTable = () => {
   const token = Cookies.get("token");
   const { data, isLoading } = useGetContactQuery(token);
-  const [deleteContact] = useDeleteContactMutation()
+  const [deleteContact] = useDeleteContactMutation();
   const contactList = data?.contacts?.data;
+
   const dispatch = useDispatch();
 
   const [sideBar, setSideBar] = useState(false);
@@ -46,10 +52,10 @@ const ContactTable = () => {
       />
     );
 
-    // const deleteHandler = async(id) => {
-    //   const data = await deleteContact({id, token})
-    //   console.log(data)
-    // }
+  // const deleteHandler = async(id) => {
+  //   const data = await deleteContact({id, token})
+  //   console.log(data)
+  // }
 
   return (
     <>
@@ -59,8 +65,9 @@ const ContactTable = () => {
       >
         <VscMenu />
       </button>
+      {!contacts && <p>No contacts found</p>}
       <div className="flex">
-        {!sideBar ? <SideBar/> : null}
+        {!sideBar ? <SideBar /> : null}
         <div className="relative w-full overflow-x-auto mt-5">
           <table className="w-full text-sm text-left text-gray-700">
             <thead className="text-xs text-gray-700 uppercase">
@@ -109,9 +116,15 @@ const ContactTable = () => {
                     >
                       {contact?.name.toUpperCase()}
                     </th>
-                    <td className="px-6 py-1 hidden md:table-cell ">{contact?.email}</td>
-                    <td className="px-6 py-1 hidden md:table-cell ">{contact?.phone}</td>
-                    <td className="px-6 py-1 hidden md:table-cell ">{contact?.address}</td>
+                    <td className="px-6 py-1 hidden md:table-cell ">
+                      {contact?.email}
+                    </td>
+                    <td className="px-6 py-1 hidden md:table-cell ">
+                      {contact?.phone}
+                    </td>
+                    <td className="px-6 py-1 hidden md:table-cell ">
+                      {contact?.address}
+                    </td>
                     <td className="px-6 py-1 text-lg font-thin text-gray-600 flex gap-3 items-center justify-center">
                       <button>
                         <BiHeart />
@@ -144,6 +157,19 @@ const ContactTable = () => {
               })}
             </tbody>
           </table>
+          {contactList.length === 0 && (
+            <div className="flex flex-col justify-center items-center h-96">
+              <img src="https://ouch-cdn2.icons8.com/avCbGk2kxWMZ55e5M_-mDt87KgZ6mQClX54gZn1tVRI/rs:fit:256:192/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzQ0/L2I1ODkxMDJlLTlk/NTQtNDJmMi1iODhk/LTA2ZTM2ODQzNTg3/ZC5zdmc.png"/>
+              <p className="text-xl mb-4 font-bold">No contacts found</p>
+              <Link to={"/create"}>
+                <p className=" text-blue-500 font-semibold flex gap-3 items-center">
+                  <BiUser />
+                  Create contact
+                </p>
+              </Link>
+            </div>
+          )}
+
         </div>
       </div>
     </>
