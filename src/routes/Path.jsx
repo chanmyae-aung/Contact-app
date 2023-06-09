@@ -13,10 +13,14 @@ const Path = () => {
     <div>
         <Routes>
             <Route path='/' element={<LoginGuard><Dashboard/></LoginGuard>}/>
-            <Route path='/register' element={<RouteGuard><Register/></RouteGuard>}/>
+            {/* <Route path='/register' element={<RouteGuard><Register/></RouteGuard>}/>
             <Route path='/login' element={<RouteGuard><Login/></RouteGuard>}/>
             <Route path='/create' element={<LoginGuard><CreateContact/></LoginGuard>}/>
-            <Route path='/update/:id' element={<LoginGuard><UpdateContact/></LoginGuard>}/>
+            <Route path='/update/:id' element={<LoginGuard><UpdateContact/></LoginGuard>}/> */}
+            <Route path='/register' element={<Register/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/create' element={<CreateContact/>}/>
+            <Route path='/update/:id' element={<UpdateContact/>}/>
         </Routes>
     </div>
   )

@@ -5,8 +5,11 @@ import { useLoginMutation } from "../redux/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/authSlice";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
+import { Bounce, Slide, ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const notify = () => toast("Login Failed");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +20,7 @@ const Login = () => {
 
   const [invalidEmail, setInvalidEmail] = useState("");
   const [invalidPassword, setInvalidPassword] = useState("");
-  console.log(invalidPassword);
+  // console.log(invalidPassword);
 
   const loginHandler = async (e) => {
     try {
@@ -27,10 +30,11 @@ const Login = () => {
       console.log(data);
       data?.success && nav("/");
       !email.includes("@gmail.com") && setInvalidEmail("invalid email");
-      !data?.success && password.length <8
+      !data?.success
         ? setInvalidPassword("invalid password")
         : setInvalidPassword("");
       dispatch(addUser({ user: data.user, token: data.token }));
+      !data?.success && notify();
     } catch (error) {
       console.log("error", error);
     }
@@ -38,6 +42,22 @@ const Login = () => {
   return (
     <>
       <BaseLayout>
+        <ToastContainer
+        toastClassName="text-center"
+          position="bottom-center"
+          transition={Zoom}
+          autoClose={800}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          // pauseOnFocusLoss
+          draggable
+          // pauseOnHover
+          theme="dark"
+          closeButton={false}
+          
+        />
         <div className="flex flex-col md:w-96">
           <h2 className="text-center text-2xl text-gray-700 my-3 font-semibold">
             Log in

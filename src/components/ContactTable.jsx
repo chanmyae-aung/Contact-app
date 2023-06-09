@@ -51,10 +51,10 @@ const ContactTable = () => {
       />
     );
 
-  const deleteHandler = async(id) => {
-    const data = await deleteContact({id, token})
-    console.log(data)
-  }
+  const deleteHandler = async (id) => {
+    const data = await deleteContact({ id, token });
+    console.log(data);
+  };
 
   return (
     <>
@@ -66,8 +66,16 @@ const ContactTable = () => {
       </button>
       {!contacts && <p>No contacts found</p>}
       <div className="flex">
-        {!sideBar ? <SideBar /> : null}
-        <div className="relative w-full overflow-x-auto mt-5">
+        {sideBar ? (
+          <div className=" transform transition-all z-10 bg-white translate-x-0 w-80 md:96 shadow-lg ease-linear duration-300 ">
+            <SideBar />
+          </div>
+        ) : (
+          <div className=" transform transition-all z-10 bg-white -translate-x-80 md:w-0 ease-linear duration-300 ">
+            <SideBar />
+          </div>
+        )}
+        <div className="md:relative -z-50 absolute w-full overflow-x-auto mt-5 transition ease-linear duration-300">
           <table className="w-full text-sm text-left text-gray-700">
             <thead className="text-xs text-gray-700 uppercase">
               <tr>
@@ -129,11 +137,11 @@ const ContactTable = () => {
                         <BiHeart />
                       </button>
                       <Link to={`/update/${contact?.id}`}>
-                      <button>
-                        <BiEditAlt />
-                      </button>
+                        <button>
+                          <BiEditAlt />
+                        </button>
                       </Link>
-                      <button onClick={()=>deleteHandler(contact?.id)}>
+                      <button onClick={() => deleteHandler(contact?.id)}>
                         <BiTrash />
                       </button>
 
@@ -160,7 +168,7 @@ const ContactTable = () => {
           </table>
           {contactList.length === 0 && (
             <div className="flex flex-col justify-center items-center h-96">
-              <img src="https://ouch-cdn2.icons8.com/avCbGk2kxWMZ55e5M_-mDt87KgZ6mQClX54gZn1tVRI/rs:fit:256:192/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzQ0/L2I1ODkxMDJlLTlk/NTQtNDJmMi1iODhk/LTA2ZTM2ODQzNTg3/ZC5zdmc.png"/>
+              <img src="https://ouch-cdn2.icons8.com/avCbGk2kxWMZ55e5M_-mDt87KgZ6mQClX54gZn1tVRI/rs:fit:256:192/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzQ0/L2I1ODkxMDJlLTlk/NTQtNDJmMi1iODhk/LTA2ZTM2ODQzNTg3/ZC5zdmc.png" />
               <p className="text-xl mb-4 font-bold">No contacts found</p>
               <Link to={"/create"}>
                 <p className=" text-blue-500 font-semibold flex gap-3 items-center">
@@ -170,7 +178,6 @@ const ContactTable = () => {
               </Link>
             </div>
           )}
-
         </div>
       </div>
     </>
