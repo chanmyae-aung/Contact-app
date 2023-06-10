@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   const searchTerm = useSelector((state) => state.contactSlice.searchTerm);
-  console.log(searchTerm);
+  // console.log(contacts);
   return (
     <>
     <div className="py-2.5 md:py-2 shadow-md flex justify-between items-center">
@@ -48,13 +48,6 @@ const Navbar = () => {
       <button className="md:mx-20 mx-5 flex items-center justify-center bg-purple-500 text-white rounded-full md:w-10 md:h-10 w-8 h-8">
         {user.name.charAt(0).toUpperCase()}
       </button>
-      {/* <CgProfile className="md:hidden text-2xl text-gray-500 ml-auto mx-5"/> */}
-      {/* <button
-        onClick={logoutHandler}
-        className="px-4 py-1 bg-red-500 text-white"
-      >
-        logout
-      </button> */}
     </div>
     </>
 

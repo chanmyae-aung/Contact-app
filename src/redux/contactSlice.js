@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 const initialState = {
   contact: [],
-  searchTerm: ''
+  searchTerm: '',
+  openModal: false
 };
 
 export const contactSlice = createSlice({
@@ -19,5 +19,5 @@ export const contactSlice = createSlice({
     }
 });
 
-export const { setSearchTerm, addContact } = contactSlice.actions;
+export const { setSearchTerm, addContact, createContactModal } = contactSlice.actions;
 export default contactSlice.reducer;

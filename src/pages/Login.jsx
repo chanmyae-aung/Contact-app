@@ -9,7 +9,9 @@ import { Bounce, Slide, ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const notify = () => toast("Login Failed");
+  const notify = () => toast(<div>
+    <p>Invalid username or password</p>
+  </div>);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -44,9 +46,10 @@ const Login = () => {
       <BaseLayout>
         <ToastContainer
         toastClassName="text-center"
+        bodyClassName="w-10"
           position="bottom-center"
-          transition={Zoom}
-          autoClose={800}
+          transition={Bounce}
+          // autoClose={800}
           hideProgressBar={true}
           newestOnTop={false}
           closeOnClick

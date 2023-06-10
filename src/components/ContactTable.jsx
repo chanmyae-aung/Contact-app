@@ -4,12 +4,10 @@ import {
   useGetContactQuery,
 } from "../redux/contactApi";
 import Cookies from "js-cookie";
-import SideBar from "./SideBar";
-import { VscMenu } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../redux/contactSlice";
 import { Loader } from "@mantine/core";
-import { BiEditAlt, BiHeart, BiTrash, BiUser } from "react-icons/bi";
+import { BiEditAlt, BiHeart, BiTrash, BiUserPlus } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const ContactTable = () => {
@@ -20,15 +18,6 @@ const ContactTable = () => {
 
   const dispatch = useDispatch();
 
-  const [sideBar, setSideBar] = useState(false);
-  const toggleSideBar = () => {
-    setSideBar(!sideBar);
-  };
-
-  // const [dropdown, setDropdown] = useState(false);
-  // const dropdownToggle = () => {
-  //   setDropdown(!dropdown);
-  // };
   const contacts = useSelector((state) => state.contactSlice.contact);
   const searchTerm = useSelector((state) => state.contactSlice.searchTerm);
 
@@ -37,6 +26,7 @@ const ContactTable = () => {
     else if (item?.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
       return item;
   });
+
   useEffect(() => {
     dispatch(addContact(contactList));
   }, [data]);
@@ -58,24 +48,8 @@ const ContactTable = () => {
 
   return (
     <>
-      <button
-        onClick={toggleSideBar}
-        className="w-12 h-12 absolute top-0 md:top-1 md:hover:bg-gray-100 rounded-full flex items-center text-2xl justify-center mx-5"
-      >
-        <VscMenu />
-      </button>
-      {!contacts && <p>No contacts found</p>}
-      <div className="flex">
-        {sideBar ? (
-          <div className=" transform transition-all z-10 bg-white translate-x-0 w-80 md:96 shadow-lg ease-linear duration-300 ">
-            <SideBar />
-          </div>
-        ) : (
-          <div className=" transform transition-all z-10 bg-white -translate-x-80 md:w-0 ease-linear duration-300 ">
-            <SideBar />
-          </div>
-        )}
-        <div className="md:relative -z-50 absolute w-full overflow-x-auto mt-5 transition ease-linear duration-300">
+      <div className="flex flex-grow">
+        <div className="md:relative absolute w-full overflow-x-auto mt-5 transition ease-linear duration-300">
           <table className="w-full text-sm text-left text-gray-700">
             <thead className="text-xs text-gray-700 uppercase">
               <tr>
@@ -170,16 +144,17 @@ const ContactTable = () => {
             <div className="flex flex-col justify-center items-center h-96">
               <img src="https://ouch-cdn2.icons8.com/avCbGk2kxWMZ55e5M_-mDt87KgZ6mQClX54gZn1tVRI/rs:fit:256:192/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzQ0/L2I1ODkxMDJlLTlk/NTQtNDJmMi1iODhk/LTA2ZTM2ODQzNTg3/ZC5zdmc.png" />
               <p className="text-xl mb-4 font-bold">No contacts found</p>
-              <Link to={"/create"}>
-                <p className=" text-blue-500 font-semibold flex gap-3 items-center">
-                  <BiUser />
+                <Link to={'/create'}>
+                <p className="cursor-pointer text-blue-500 font-semibold flex gap-2 items-center">
+                  <BiUserPlus className="text-xl"/>
                   Create contact
                 </p>
-              </Link>
+                </Link>
             </div>
           )}
         </div>
       </div>
+
     </>
   );
 };
