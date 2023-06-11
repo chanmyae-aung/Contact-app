@@ -47,10 +47,11 @@ const UpdateContact = () => {
     <>
       <main className="flex flex-col w-full">
         <div className="flex items-center">
-          <RxCross1 onClick={() => nav(-1)} className="absolute top-16 ml-8 mt-5 cursor-pointer" />
+          <RxCross1 onClick={() => nav(`/detail/${id}`)} className="absolute top-16 ml-8 mt-5 cursor-pointer" />
           <button className="w-36 h-36 my-10 mx-20 rounded-full bg-blue-200 flex items-center justify-center text-3xl">
             <BiImageAdd />
           </button>
+          <h2 className="text-xl font-bold">{name}</h2>
         </div>
         <hr />
         <form

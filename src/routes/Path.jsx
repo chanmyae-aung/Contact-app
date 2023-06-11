@@ -9,6 +9,7 @@ import UpdateContact from "../pages/UpdateContact";
 import ContactTable from "../components/ContactTable";
 import CreateContact from "../components/CreateContact";
 import Favorite from "../pages/Favorite";
+import Detail from "../pages/Detail";
 
 const Path = () => {
   return (
@@ -27,6 +28,7 @@ const Path = () => {
           <Route path="create" element={<CreateContact />} />
           <Route path="favorite" element={<Favorite />} />
           <Route path="update/:id" element={<UpdateContact />} />
+          <Route path="detail/:id" element={<Detail />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
