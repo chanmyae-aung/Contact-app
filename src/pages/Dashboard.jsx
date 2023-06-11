@@ -21,7 +21,7 @@ const Dashboard = () => {
         <VscMenu />
       </button>
       {!sideBar ? (
-        <div className=" transform transition-all z-10 bg-white translate-x-0 w-72 shadow-lg ease-linear duration-300 ">
+        <div className=" transform transition-all z-10 bg-white translate-x-0 w-72 ease-linear duration-300 ">
           <SideBar />
         </div>
       ) : (

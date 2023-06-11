@@ -28,7 +28,7 @@ const Navbar = () => {
   // console.log(contacts);
   return (
     <>
-      <div className="py-2.5 md:py-2 shadow-md flex justify-between items-center">
+      <div className="py-2.5 md:py-2 shadow-md sticky top-0 flex justify-between items-center">
         <div className="px-20 flex gap-3 items-center">
           <img
             className="w-10 hidden md:flex"
@@ -67,8 +67,8 @@ const Navbar = () => {
                 <p className="text-sm">{user?.email}</p>
               </div>
             </div>
-            <button className="ml-16 p-1.5 px-8 my-5 text-sm font-bold border border-black rounded-md bg-gray-100 hover:bg-gray-200 text-black">
-              Manage your google account
+            <button className="ml-16 p-1.5 px-8 my-5 text-sm font-semibold border border-black rounded-md bg-gray-100 hover:bg-gray-200 text-black">
+              Manage your Google Account
             </button>
             <div className="flex gap-3 items-center mb-3 cursor-pointer">
               <BiCheckShield className="text-xl" />

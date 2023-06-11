@@ -26,7 +26,7 @@ const SideBar = () => {
   };
 
   return (
-    <div className=" md:relative z-20 bg-white h-screen w-72 flex flex-col">
+    <div className=" md:relative z-20 bg-white h-[100%] w-72 flex fixed flex-col">
       <Link to={"create"}>
         <button className="w-52 my-7 flex items-center justify-center gap-2 py-3 px-4 bg-white-500 shadow-md hover:shadow-lg hover:bg-blue-50 hover:text-blue-500 rounded-full mb-5 ml-10 text-gray-700 font-bold border">
           <BiPlus className="text-blue-500 text-2xl font-bold" />

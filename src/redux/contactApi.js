@@ -39,9 +39,10 @@ export const contactApi = createApi({
       providesTags: ['contact'],
     }),
     updateContact: builder.mutation({
-      query: ({id, token}) => ({
-        url: `/contact/${id}`,
+      query: ({updatedContact, token}) => ({
+        url: `/contact/${updatedContact.id}`,
         method: "PUT",
+        body: updatedContact,
         headers: {authorization : `Bearer ${token}`}
       }),
       invalidatesTags: ["contact"]

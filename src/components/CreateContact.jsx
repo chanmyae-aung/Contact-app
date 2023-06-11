@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useCreateContactMutation } from "../redux/contactApi";
 import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { BiImageAdd } from "react-icons/bi";
+import {  useNavigate } from "react-router-dom";
+import {  BiBuildingHouse, BiEnvelope, BiImageAdd, BiPhone, BiUser } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 
 const CreateContact = () => {
   const [create, { isLoading }] = useCreateContactMutation();
   const token = Cookies.get("token");
   const nav = useNavigate();
-  // const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -50,7 +48,8 @@ const CreateContact = () => {
           >
             Save
           </button>
-          <div className="mb-6">
+          <div className="mb-6 flex gap-5 items-center">
+            <BiUser className="text-gray-500 text-xl"/>
             <input
               type="name"
               id="name"
@@ -59,7 +58,8 @@ const CreateContact = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 flex gap-5 items-center">
+          <BiEnvelope className="text-gray-500 text-xl"/>
             <input
               type="email"
               id="email"
@@ -68,7 +68,8 @@ const CreateContact = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 flex gap-5 items-center">
+          <BiPhone className="text-gray-500 text-xl"/>
             <input
               type="text"
               id="phone"
@@ -77,7 +78,8 @@ const CreateContact = () => {
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 flex gap-5 items-center">
+          <BiBuildingHouse className="text-gray-500 text-xl"/>
             <input
               type="text"
               id="address"
