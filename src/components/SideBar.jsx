@@ -5,20 +5,11 @@ import { useLogoutMutation } from "../redux/authApi";
 import Cookies from "js-cookie";
 import { removeUser } from "../redux/authSlice";
 import { MdLogout, MdOutlineAutoFixHigh } from "react-icons/md";
-import {
-  BiUser,
-  BiHeart,
-  BiPlus,
-  BiTrashAlt,
-  BiEditAlt,
-  BiEraser,
-  BiMerge,
-} from "react-icons/bi";
+import { BiUser, BiHeart, BiPlus, BiTrashAlt } from "react-icons/bi";
 import { useGetContactQuery } from "../redux/contactApi";
-import { createContactModal } from "../redux/contactSlice";
 
 const SideBar = () => {
-  const user = JSON.parse(Cookies.get("user"));
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null; // to prevent above error
   const token = Cookies.get("token");
   const { data } = useGetContactQuery(token);
   const contacts = data?.contacts?.data;
@@ -37,12 +28,10 @@ const SideBar = () => {
   return (
     <div className=" md:relative z-20 bg-white h-screen w-72 flex flex-col">
       <Link to={"create"}>
-      <button
-        className="w-52 my-7 flex items-center justify-center gap-2 py-3 px-4 bg-white-500 shadow-md hover:shadow-lg hover:bg-blue-50 hover:text-blue-500 rounded-full mb-5 ml-10 text-gray-700 font-bold border"
-      >
-        <BiPlus className="text-blue-500 text-2xl font-bold" />
-        Create Contact
-      </button>
+        <button className="w-52 my-7 flex items-center justify-center gap-2 py-3 px-4 bg-white-500 shadow-md hover:shadow-lg hover:bg-blue-50 hover:text-blue-500 rounded-full mb-5 ml-10 text-gray-700 font-bold border">
+          <BiPlus className="text-blue-500 text-2xl font-bold" />
+          Create Contact
+        </button>
       </Link>
       <div>
         <Link to={"table"}>
@@ -54,11 +43,11 @@ const SideBar = () => {
             <span className="text-sm font-bold">{contacts?.length}</span>
           </div>
         </Link>
-        <Link to={'favorite'}>
-        <p className="py-2 px-10 mr-10 text-sm font-bold rounded-e-full hover:bg-blue-100 hover:text-blue-500 cursor-pointer flex gap-3 items-center">
-          <BiHeart className="text-lg" />
-          Favorites
-        </p>
+        <Link to={"favorite"}>
+          <p className="py-2 px-10 mr-10 text-sm font-bold rounded-e-full hover:bg-blue-100 hover:text-blue-500 cursor-pointer flex gap-3 items-center">
+            <BiHeart className="text-lg" />
+            Favorites
+          </p>
         </Link>
       </div>
       <div>

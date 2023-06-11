@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-// import ContactTable from '../components/ContactTable'
 import SideBar from "../components/SideBar";
 import { Outlet } from "react-router-dom";
 import { VscMenu } from "react-icons/vsc";
@@ -12,6 +11,8 @@ const Dashboard = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="flex">
       <button
         onClick={toggleSideBar}
@@ -30,6 +31,7 @@ const Dashboard = () => {
       )}
       <Outlet />
     </div>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contact: [],
   searchTerm: '',
-  openModal: false
+  show: false
 };
 
 export const contactSlice = createSlice({
@@ -16,8 +16,11 @@ export const contactSlice = createSlice({
     setSearchTerm: (state, {payload}) => {
         state.searchTerm = payload
     },
+    setShow: (state) => {
+      state.show = !state.show
+    }
     }
 });
 
-export const { setSearchTerm, addContact, createContactModal } = contactSlice.actions;
+export const { setSearchTerm, addContact, setShow } = contactSlice.actions;
 export default contactSlice.reducer;

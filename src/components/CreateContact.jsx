@@ -29,22 +29,9 @@ const CreateContact = () => {
     <>
       <main className="flex flex-col w-full">
         <div className="flex items-center">
-          <Link to={'/'} >
-            <RxCross1 className="absolute top-16 ml-8 mt-5" />
-          </Link>
+            <RxCross1 onClick={() => nav(-1)} className="absolute top-16 ml-8 mt-5 cursor-pointer" />
           <button className="w-36 h-36 my-10 mx-20 rounded-full bg-blue-200 flex items-center justify-center text-3xl">
             <BiImageAdd />
-          </button>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={
-              !isLoading
-                ? " text-white ml-auto mr-40 mt-40 bg-blue-700 hover:bg-blue-800  font-medium rounded-md text-sm px-6 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                : " text-gray-300 ml-auto mr-40 mt-40 bg-gray-300  font-medium rounded-md text-sm px-6 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            }
-          >
-            Save
           </button>
         </div>
         <hr />
@@ -52,15 +39,24 @@ const CreateContact = () => {
           onSubmit={handleCreate}
           className="ml-20 mt-5 flex flex-col w-[50%]"
         >
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={
+              !isLoading
+                ? "absolute right-0 top-56 text-white ml-auto mr-40 bg-blue-700 hover:bg-blue-800  font-medium rounded-md text-sm px-6 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                : "absolute right-0 top-56 text-gray-300 ml-auto mr-40 bg-gray-300  font-medium rounded-md text-sm px-6 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            }
+          >
+            Save
+          </button>
           <div className="mb-6">
             <input
               type="name"
               id="name"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your name..."
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -69,9 +65,7 @@ const CreateContact = () => {
               id="email"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your email..."
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -80,9 +74,7 @@ const CreateContact = () => {
               id="phone"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your phone..."
-              onChange={(e) => {
-                setPhone(e.target.value);
-              }}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -91,9 +83,7 @@ const CreateContact = () => {
               id="address"
               className="shadow-sm focus-within:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter your address..."
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
         </form>

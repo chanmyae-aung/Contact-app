@@ -15,7 +15,7 @@ import Favorite from "../pages/Favorite";
 const Path = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route
           path="/"
