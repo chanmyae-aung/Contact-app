@@ -68,8 +68,7 @@ const Login = () => {
           <p className="text-center px-4">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. expedita.
           </p>
-          <form onSubmit={loginHandler} className=" p-5 pt-0 flex flex-col">
-            <button className="text-blue-500 w-full flex items-center justify-center gap-3 bg-gray-50 hover:shadow-lg  font-medium rounded-lg px-5 py-2 text-center mt-4">
+            <p  className="text-blue-500 w-[90%] ml-5 cursor-pointer flex items-center justify-center gap-3 bg-gray-50 hover:shadow-lg  font-medium rounded-lg px-5 py-2 text-center mt-4">
               <span>
                 <img
                   className="w-7"
@@ -78,7 +77,8 @@ const Login = () => {
                 />
               </span>
               Login with Google
-            </button>
+            </p>
+          <form onSubmit={loginHandler} className=" p-5 pt-0 flex flex-col">
             <div className="flex">
               <p className="my-2 mx-auto  text-sm text-gray-500 font-bold">
                 OR

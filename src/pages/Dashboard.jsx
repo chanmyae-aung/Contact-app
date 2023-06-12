@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
 import { Outlet } from "react-router-dom";
-import { VscMenu } from "react-icons/vsc";
 import { BiMenu } from "react-icons/bi";
 
 const Dashboard = () => {
