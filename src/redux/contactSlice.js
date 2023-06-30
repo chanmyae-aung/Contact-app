@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contact: [],
   searchTerm: '',
-  show: false
+  show: false,
 };
 
 export const contactSlice = createSlice({
@@ -18,7 +18,8 @@ export const contactSlice = createSlice({
     },
     setShow: (state) => {
       state.show = !state.show
-    }
+    },
+
     }
 });
 

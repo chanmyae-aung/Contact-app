@@ -11,7 +11,7 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div>
     <Navbar/>
     <div className="flex">
       <button
@@ -31,7 +31,7 @@ const Dashboard = () => {
       )}
       <Outlet />
     </div>
-    </>
+    </div>
   );
 };
 

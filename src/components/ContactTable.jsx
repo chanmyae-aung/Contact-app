@@ -7,23 +7,67 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../redux/contactSlice";
 import { Loader } from "@mantine/core";
-import { BiEditAlt, BiHeart, BiTrash, BiUserPlus } from "react-icons/bi";
+import { BiDotsVerticalRounded, BiPrinter } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import {
+  MdOutlineFileUpload,
+  MdOutlineModeEditOutline,
+  MdStarOutline,
+} from "react-icons/md";
+import { LuImport } from "react-icons/lu";
+import { BsTrash } from "react-icons/bs";
 
 const ContactTable = () => {
   const colors = [
-    "#3b8c2a", "#986b53", "#f50422", "#983f7a", "#ea24a3", "#79352c", "#521250",
-    "#c79ed2", "#d6dd92", "#e33e52", "#b2be57", "#fa06ec", "#1bb699", "#6b2e5f",
-    "#64820f", "#21538e", "#89d534", "#d36647", "#7fb411", "#0023b8", "#3b8c2a",
-    "#986b53", "#f50422", "#983f7a", "#ea24a3", "#79352c", "#521250", "#c79ed2",
-    "#d6dd92", "#e33e52", "#b2be57", "#fa06ec", "#1bb699", "#6b2e5f", "#64820f",
-    "#9cb64a", "#996c48", "#9ab9b7", "#06e052", "#e3a481", "#0eb621", "#fc458e",
+    "#3b8c2a",
+    "#986b53",
+    "#f50422",
+    "#983f7a",
+    "#ea24a3",
+    "#79352c",
+    "#521250",
+    "#c79ed2",
+    "#d6dd92",
+    "#e33e52",
+    "#b2be57",
+    "#fa06ec",
+    "#1bb699",
+    "#6b2e5f",
+    "#64820f",
+    "#21538e",
+    "#89d534",
+    "#d36647",
+    "#7fb411",
+    "#0023b8",
+    "#3b8c2a",
+    "#986b53",
+    "#f50422",
+    "#983f7a",
+    "#ea24a3",
+    "#79352c",
+    "#521250",
+    "#c79ed2",
+    "#d6dd92",
+    "#e33e52",
+    "#b2be57",
+    "#fa06ec",
+    "#1bb699",
+    "#6b2e5f",
+    "#64820f",
+    "#9cb64a",
+    "#996c48",
+    "#9ab9b7",
+    "#06e052",
+    "#e3a481",
+    "#0eb621",
+    "#fc458e",
   ];
 
   const token = Cookies.get("token");
   const { data, isLoading } = useGetContactQuery(token);
   const [deleteContact] = useDeleteContactMutation(token);
   const contactList = data?.contacts?.data;
+  const [showMore, setShowMore] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -75,9 +119,10 @@ const ContactTable = () => {
                 <th scope="col" className="px-6 py-4 hidden md:table-cell ">
                   Address
                 </th>
-                <th scope="col" className="px-6 py-4 hidden md:table-cell ">
-                  Action
-                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-4 hidden md:table-cell "
+                ></th>
               </tr>
             </thead>
             <tbody className="">
@@ -89,7 +134,7 @@ const ContactTable = () => {
                 return (
                   <tr
                     key={contact?.id}
-                    className="bg-white border-b hover:bg-blue-50 hover:shadow-lg odd:bg-gray-50 "
+                    className="bg-white border-b hover:bg-blue-50 hover:shadow-lg odd:bg-gray-50 group/item"
                   >
                     <td className="pl-10 py-1">
                       {contact?.photo === null ? (
@@ -109,12 +154,13 @@ const ContactTable = () => {
                     </td>
                     <th
                       scope="row"
-                      className="px-6 py-1 font-medium text-gray-900 whitespace-nowrap "
+                      className="px-6 py-1 font-medium text-gray-900 whitespace-nowrap"
                     >
-                      {contact?.name.toUpperCase()}
+                      {contact?.name.length > 8 &&
+                        contact?.name.substring(0, 8).toUpperCase() + " . . ."}
                     </th>
                     <td className="px-6 py-1 hidden md:table-cell ">
-                      {contact?.email}
+                      {contact?.email ? contact.emial : "example@gmail.com"}
                     </td>
                     <td className="px-6 py-1 hidden md:table-cell ">
                       {contact?.phone}
@@ -122,34 +168,37 @@ const ContactTable = () => {
                     <td className="px-6 py-1 hidden md:table-cell ">
                       {contact?.address}
                     </td>
-                    <td className="px-6 py-1 text-lg font-thin text-gray-600 flex gap-3 items-center justify-center">
+                    <td className="px-6 py-1 relative text-lg font-thin text-gray-600 flex gap-5 items-center justify-center invisible group-hover/item:visible">
                       <button>
-                        <BiHeart />
+                        <MdStarOutline />
                       </button>
                       <Link to={`/update/${contact?.id}`}>
                         <button>
-                          <BiEditAlt />
+                          <MdOutlineModeEditOutline />
                         </button>
                       </Link>
-                      <button onClick={() => deleteHandler(contact?.id)}>
-                        <BiTrash />
+                      <button onClick={() => setShowMore(!showMore)}>
+                        <BiDotsVerticalRounded />
                       </button>
-
-                      {/* <button
-                        onClick={(e)=> console.log(e.target)}
-                        className="px-4 py-2 z-10"
-                        type="button"
-                      >
-                        <BsThreeDots />
-                      </button>
-                      {dropdown && (
-                        <div className="absolute z-10 bg-white text-gray-700 pt-1">
-                          <button className="px-4 py-2">favorite</button>
-                          <button className="px-4 py-2">print</button>
-                          <button className="px-4 py-2">edit</button>
-                          <button className="px-4 py-2">delete</button>
+                      {showMore && (
+                        <div className="absolute top-12 right-10 w-52 flex flex-col z-10 bg-white text-gray-700 pt-1 shadow-lg">
+                          <button className="px-4 py-2 flex gap-3 items-center hover:bg-gray-200 text-sm font-semibold">
+                            <BiPrinter className="text-lg"/>
+                            Print{" "}
+                          </button>
+                          <button className="px-4 py-2 flex gap-3 items-center hover:bg-gray-200 text-sm font-semibold">
+                            <MdOutlineFileUpload className="text-lg"/>
+                            Export
+                          </button>
+                          <button className="px-4 py-2 flex gap-3 items-center hover:bg-gray-200 text-sm font-semibold">
+                            <LuImport className="text-lg"/>
+                            Hide from contacts
+                          </button>
+                          <button className="px-4 py-2 flex gap-3 items-center hover:bg-gray-200 text-sm font-semibold">
+                            <BsTrash className="text-lg"/>
+                            Delete</button>
                         </div>
-                      )} */}
+                      )}
                     </td>
                   </tr>
                 );
